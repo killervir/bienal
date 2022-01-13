@@ -1,0 +1,20 @@
+$data = array('name'=>$name,'folio'=>$folio);
+        $template_path = 'emails.bienal';
+        
+           /* $mail = Mail::send(['html'=> $template_path ], $data, function($message) use($emailUsuario, $name) {
+                $message->from($emailUsuario,'Bienal de fotografía');
+                $message->to($emailUsuario, $name)->subject('Bienal de Fotografía');                
+            }); */ 
+            try {
+                $mail = Mail::to($emailUsuario)->send(new SendMailable($emailUsuario, $name, $folio));
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+                 
+        if($mail){
+            return view('bienal_web.registrado',[
+                'folio'=>$folio,
+            ]); 
+        } else {
+            echo 'Rechazo';
+        }

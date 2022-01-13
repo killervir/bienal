@@ -1,0 +1,439 @@
+@extends('layouts.site')
+@section('title') Formación y trabajo cultural @endsection
+
+{{-- Mensajes de alerta  --}}
+
+@section('content_encuesta')
+@php
+$encAntExito=Session::get('encAntExito');
+$guardadoExitoso=Session::get('guardadoExitoso');
+@endphp
+
+@isset($encAntExito)
+<script>
+    alert("Las respuestas del Cuestionario Sociodemografico han sido enviadas exitosamente");
+</script>
+@php
+Session::put('encAntExito',null);
+@endphp
+@endisset
+@isset($guardadoExitoso)
+<script>
+    alert("El avance ha sido guardado");
+</script>
+@php
+Session::put('guardadoExitoso',null);
+@endphp
+@endisset
+
+{{-- Fin de mensajes de alerta --}}
+
+@section('content')
+<div class="main">
+    <div class="cEncuesta">
+
+        @include('layouts.menuEncuesta')
+
+        <div class="contPreguntas">
+
+            <div class="contPre">
+                <div class="scrollEnc">
+                    <form action="{{route('Usuarios.SaveEncEducacion') }}" method="post" id="encuesta2">
+                        @csrf
+                        <!-- Pregunta 01. ¿Principalmente de qué manera aprendió su conocimiento en el campo artístico y/o cultural? -->
+                        <div class="pregunta" data-pregunta="1" style="display:none;">
+                            <label for="manera_aprendio_conocimiento">¿Principalmente de qué manera aprendió su
+                                conocimiento en el campo artístico y/o cultural?</label>
+                            @php $op = 0; @endphp
+
+                            <a class="buttonEnc buttonOption1 @if((old('manera_aprendio_conocimiento')==1  ) ||$Educacion->manera_aprendio_conocimiento==1 ) selected @php $op = 1; @endphp @endif"
+                                data-input="manera_aprendio_conocimiento" data-value="1">Enseñanza de padres y/o
+                                familiares directos </a>
+                            <a class="buttonEnc buttonOption1 @if((old('manera_aprendio_conocimiento')==2  ) ||$Educacion->manera_aprendio_conocimiento==2 ) selected @php $op = 2; @endphp @endif"
+                                data-input="manera_aprendio_conocimiento" data-value="2">Enseñanza de amigos y/o
+                                compañeros</a>
+                            <a class="buttonEnc buttonOption1 @if((old('manera_aprendio_conocimiento')==3  ) ||$Educacion->manera_aprendio_conocimiento==3 ) selected @php $op = 3; @endphp @endif"
+                                data-input="manera_aprendio_conocimiento" data-value="3">Asistencia a cursos, clases y
+                                talleres</a>
+                            <a class="buttonEnc buttonOption1 @if((old('manera_aprendio_conocimiento')==4  ) ||$Educacion->manera_aprendio_conocimiento==4 ) selected @php $op = 4; @endphp @endif"
+                                data-input="manera_aprendio_conocimiento" data-value="4">Por su propia cuenta</a>
+                            <a class="buttonEnc buttonOption1 @if((old('manera_aprendio_conocimiento')==5  ) ||$Educacion->manera_aprendio_conocimiento==5 ) selected @php $op = 5; @endphp @endif"
+                                data-input="manera_aprendio_conocimiento" data-value="5">Tutoriales en internet o
+                                televisión</a>
+                            <a class="buttonEnc buttonOption1 @if((old('manera_aprendio_conocimiento')==6  ) ||$Educacion->manera_aprendio_conocimiento==6 ) selected @php $op = 6; @endphp @endif"
+                                data-input="manera_aprendio_conocimiento" data-value="6">Carrera técnica con
+                                especialidad en artes con secundaria terminada</a>
+                            <a class="buttonEnc buttonOption1 @if((old('manera_aprendio_conocimiento')==7  ) ||$Educacion->manera_aprendio_conocimiento==7 ) selected @php $op = 7; @endphp @endif"
+                                data-input="manera_aprendio_conocimiento" data-value="7">Estudios de bachillerato en
+                                artes</a>
+                            <a class="buttonEnc buttonOption1 @if((old('manera_aprendio_conocimiento')==8  ) ||$Educacion->manera_aprendio_conocimiento==8 ) selected @php $op = 8; @endphp @endif"
+                                data-input="manera_aprendio_conocimiento" data-value="8">Tiene estudios de
+                                licenciatura</a>
+                            <a class="buttonEnc buttonOption1 @if((old('manera_aprendio_conocimiento')==9  ) ||$Educacion->manera_aprendio_conocimiento==9 ) selected @php $op = 9; @endphp @endif"
+                                data-input="manera_aprendio_conocimiento" data-value="9">Cursó algún diplomado o taller
+                                en artes</a>
+                            <a class="buttonEnc buttonOption1 @if((old('manera_aprendio_conocimiento')==10 ) ||$Educacion->manera_aprendio_conocimiento==10 ) selected @php $op = 10; @endphp @endif"
+                                data-input="manera_aprendio_conocimiento" data-value="10">Cursó estudios de maestría</a>
+                            <a class="buttonEnc buttonOption1 @if((old('manera_aprendio_conocimiento')==11 ) ||$Educacion->manera_aprendio_conocimiento==11 ) selected @php $op = 11; @endphp @endif"
+                                data-input="manera_aprendio_conocimiento" data-value="11">Cursó estudios de
+                                doctorado</a>
+                            <a class="buttonEnc buttonOption1 @if((old('manera_aprendio_conocimiento')==12 ) ||$Educacion->manera_aprendio_conocimiento==12 ) selected @php $op = 12; @endphp @endif"
+                                data-input="manera_aprendio_conocimiento" data-value="12">Otra</a>
+
+                            <div id="conApreOtra" class="conPreSec"
+                                style="display: @if((old('manera_aprendio_conocimiento')==12 ) ||$Educacion->manera_aprendio_conocimiento==12 ) block @else none @endif;">
+                                <label for="otra_manera_aprendio_conocimiento">Especifique</label>
+                                <input type="text" class="form-control" name="otra_manera_aprendio_conocimiento"
+                                    id="otra_manera_aprendio_conocimiento"
+                                    value="{{old('otra_manera_aprendio_conocimiento',$Educacion->otra_manera_aprendio_conocimiento)}}">
+                            </div>
+
+                            <div id="conEst" class="conPreSec" style="display:none;">
+                                <!-- Pregunta 011. Nombre de los estudios realizados -->
+                                <label for="nombre_estudios">Nombre de los estudios realizados</label>
+                                <input type="text" class="form-control" name="nombre_estudios"
+                                    placeholder="Ejemplo: Licenciatura en Literatura Dramática y Teatro"
+                                    id="nombre_estudios" value="{{$Educacion->nombre_estudios}}" required>
+                                <!-- FIN Pregunta 011. Nombre de los estudios realizados -->
+
+                                <!-- Pregunta 012. ¿Sus estudios los realizó en México? -->
+                                <label for="estudios_realizo_mexico">¿Sus estudios los realizó en México?</label>
+                                @php $opSec = 0; @endphp
+                                <label class="contcheckbox">Si
+                                    <input class="buttonOption2" type="checkbox" id="estudi_1" name="estudi_1" value="1"
+                                        @if((old('estudios_realizo_mexico')==1 )
+                                        ||$Educacion->estudios_realizo_mexico==1 ) checked @php $opSec = 1; @endphp
+                                    @endif data-input="estudios_realizo_mexico" data-value="1">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="contcheckbox">No
+                                    <input class="buttonOption2" type="checkbox" id="estudi_2" name="estudi_2" value="2"
+                                        @if((old('estudios_realizo_mexico')==2 )
+                                        ||$Educacion->estudios_realizo_mexico==2 ) @php $opSec = 2; @endphp checked
+                                    @endif data-input="estudios_realizo_mexico" data-value="2">
+                                    <span class="checkmark"></span>
+                                </label>
+
+                                <input class="inputHidden" type="number" id="estudios_realizo_mexico"
+                                    name="estudios_realizo_mexico" value="{{$opSec}}">
+                                <!-- FIN Pregunta 012. ¿Sus estudios los realizó en México? -->
+                            </div>
+
+                            <input class="inputHidden" type="number" id="manera_aprendio_conocimiento"
+                                name="manera_aprendio_conocimiento" value="{{$op}}">
+
+                            <div class="msg-error">
+                                {!!$errors->first('otra_manera_aprendio_conocimiento','<FONT COLOR="red">
+                                    <strong>:message</strong></FONT>')!!}
+                                {!!$errors->first('manera_aprendio_conocimiento','<FONT COLOR="red">
+                                    <strong>:message</strong></FONT>')!!}
+                                {!!$errors->first('nombre_estudios','<FONT COLOR="red"><strong>:message</strong></FONT>
+                                ')!!}
+                                {!!$errors->first('estudios_realizo_mexico','<FONT COLOR="red"><strong>:message</strong>
+                                </FONT>')!!}
+                            </div>
+
+                        </div>
+                        <!-- FIN Pregunta 01. ¿Principalmente de qué manera aprendió su conocimiento en el campo artístico y/o cultural? -->
+
+                        <!-- Pregunta 02. Actualmente ¿cuál es su ocupación principal de la que obtiene ingreso? -->
+                        <div class="pregunta" data-pregunta="2" style="display:none;">
+                            <label for="ocupacion_actual">Actualmente ¿cuál es su ocupación principal de la que obtiene
+                                ingreso?</label>
+                            @php $op = 0; @endphp
+
+                            <a class="buttonEnc buttonOption1 @if((old('ocupacion_actual')==2 ) || $Educacion->ocupacion_actual==2 ) selected @php $op = 2; @endphp @endif"
+                                data-input="ocupacion_actual" data-value="2">Empleado del sector público</a>
+                            <div id="conOcuPub" class="conPreSec"
+                                style="display: @if((old('ocupacion_actual')==2 ) || $Educacion->ocupacion_actual==2 ) block @else none @endif;">
+                                <label for="ocupacion_publica">Especifique: </label>
+                                <input type="text" class="form-control" name="ocupacion_publica" id="ocupacion_publica"
+                                    value="{{old('ocupacion_publica', $Educacion->ocupacion_publica)}}">
+                                {!!$errors->first('ocupacion_publica','<FONT COLOR="red"><strong>:message</strong>
+                                </FONT>')!!}
+                            </div>
+                            <a class="buttonEnc buttonOption1 @if((old('ocupacion_actual')==3 ) ||$Educacion->ocupacion_actual==3 ) selected @php $op = 3; @endphp @endif"
+                                data-input="ocupacion_actual" data-value="3">Empleado del sector privado</a>
+                            <div id="conOcuPri" class="conPreSec"
+                                style="display: @if((old('ocupacion_actual')==3 ) ||$Educacion->ocupacion_actual==3) block @else none @endif;">
+                                <label for="ocupacion_privada">Especifique: </label>
+                                <input type="text" class="form-control" name="ocupacion_privada" id="ocupacion_privada"
+                                    value="{{$Educacion->ocupacion_privada}}">
+                                {!!$errors->first('ocupacion_privada','<FONT COLOR="red"><strong>:message</strong>
+                                </FONT>')!!}
+                            </div>
+                            <a class="buttonEnc buttonOption1 @if((old('ocupacion_actual')==4 ) ||$Educacion->ocupacion_actual==4 ) selected @php $op = 4; @endphp @endif"
+                                data-input="ocupacion_actual" data-value="4">Empleado del sector social como:
+                                cooperativas, organizaciones no lucrativas, etc.</a>
+                            <div id="conOcuSoc" class="conPreSec"
+                                style="display: @if((old('ocupacion_actual')==4 ) ||$Educacion->ocupacion_actual==4) block @else none @endif;">
+                                <label for="ocupacion_coperativa">Especifique: </label>
+                                <input type="text" class="form-control" name="ocupacion_coperativa"
+                                    id="ocupacion_coperativa" value="{{$Educacion->ocupacion_coperativa}}">
+                                {!!$errors->first('ocupacion_coperativa','<FONT COLOR="red"><strong>:message</strong>
+                                </FONT>')!!}
+                            </div>
+                            <a class="buttonEnc buttonOption1 @if((old('ocupacion_actual')==5 ) ||$Educacion->ocupacion_actual==5 ) selected @php $op = 5; @endphp @endif"
+                                data-input="ocupacion_actual" data-value="5">Autoempleo</a>
+                            <a class="buttonEnc buttonOption1 @if((old('ocupacion_actual')==6 ) ||$Educacion->ocupacion_actual==6 ) selected @php $op = 6; @endphp @endif"
+                                data-input="ocupacion_actual" data-value="6">Actualmente no labora</a>
+                            <div id="conNoLab" class="conPreSec"
+                                style="display: @if((old('ocupacion_actual')==6 ) ||$Educacion->ocupacion_actual==6) block @else none @endif;">
+                                <!-- Pregunta 021. Especifique-->
+                                <label for="trabajo_busqueda">Especifique:</label>
+                                @php $opSec = 0; @endphp
+                                <label class="contcheckbox">Estudiante
+                                    <input class="buttonOption2" type="checkbox" id="trabajo_bus1" name="trabajo_bus1"
+                                        value="1" @if((old('trabajo_busqueda')==1 ) ||$Educacion->trabajo_busqueda==1)
+                                    checked @php $opSec = 1; @endphp @endif data-input="trabajo_busqueda"
+                                    data-value="1">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="contcheckbox">Me encuentro buscando empleo
+                                    <input class="buttonOption2" type="checkbox" id="trabajo_bus2" name="trabajo_bus2"
+                                        value="2" @if((old('trabajo_busqueda')==2 ) ||$Educacion->trabajo_busqueda==2)
+                                    checked @php $opSec = 2; @endphp @endif data-input="trabajo_busqueda"
+                                    data-value="2">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="contcheckbox">No busco empleo
+                                    <input class="buttonOption2" type="checkbox" id="trabajo_bus3" name="trabajo_bus3"
+                                        value="3" @if((old('trabajo_busqueda')==3 ) ||$Educacion->trabajo_busqueda==3)
+                                    checked @php $opSec = 3; @endphp @endif data-input="trabajo_busqueda"
+                                    data-value="3">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="contcheckbox">Por motivos personales
+                                    <input class="buttonOption2" type="checkbox" id="trabajo_bus4" name="trabajo_bus4"
+                                        value="4" @if((old('trabajo_busqueda')==4 ) ||$Educacion->trabajo_busqueda==4)
+                                    checked @php $opSec = 4; @endphp @endif data-input="trabajo_busqueda"
+                                    data-value="4">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="contcheckbox">Jubilado
+                                    <input class="buttonOption2" type="checkbox" id="trabajo_bus5" name="trabajo_bus5"
+                                        value="5" @if((old('trabajo_busqueda')==5 ) ||$Educacion->trabajo_busqueda==5)
+                                    checked @php $opSec = 5; @endphp @endif data-input="trabajo_busqueda"
+                                    data-value="5">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="contcheckbox">Recibe apoyo de gobierno
+                                    <input class="buttonOption2" type="checkbox" id="trabajo_bus6" name="trabajo_bus6"
+                                        value="6" @if((old('trabajo_busqueda')==6 ) ||$Educacion->trabajo_busqueda==6)
+                                    checked @php $opSec = 6; @endphp @endif data-input="trabajo_busqueda"
+                                    data-value="6">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="contcheckbox">Otro
+                                    <input class="buttonOption2" type="checkbox" id="trabajo_bus7" name="trabajo_bus7"
+                                        value="7" @if((old('trabajo_busqueda')==7 ) ||$Educacion->trabajo_busqueda==7)
+                                    checked @php $opSec = 7; @endphp @endif data-input="trabajo_busqueda"
+                                    data-value="7">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <div id="contNoLabOtra" class="conPreSec"
+                                    style="display: @if((old('trabajo_busqueda')==7 ) ||$Educacion->trabajo_busqueda==7) block @else none @endif;">
+                                    <label for="trabajo_busqueda_otro">Especifique: </label>
+                                    <input type="text" class="form-control" name="trabajo_busqueda_otro"
+                                        id="trabajo_busqueda_otro"
+                                        value="{{old('trabajo_busqueda_otro',$Educacion->trabajo_busqueda_otro)}}">
+                                    {!!$errors->first('trabajo_busqueda_otro','<FONT COLOR="red">
+                                        <strong>:message</strong></FONT>')!!}
+                                </div>
+                                <!-- FIN Pregunta 021. Especifique -->
+
+                                <input class="inputHidden" type="number" id="trabajo_busqueda" name="trabajo_busqueda"
+                                    value="{{$opSec}}">
+                            </div>
+
+                            <input class="inputHidden" type="number" id="ocupacion_actual" name="ocupacion_actual"
+                                value="{{$op}}">
+
+                            <div class="msg-error">
+                                {!!$errors->first('ocupacion_actual','message')!!}
+                            </div>
+                        </div>
+                        <!-- FIN Pregunta 02. Actualmente ¿cuál es su ocupación principal de la que obtiene ingreso?-->
+
+                        <!-- Pregunta 03. Adicionalmente al trabajo que realiza... ¿desempeña otra actividad de la cual obtiene ingreso? -->
+                        <div class="pregunta" data-pregunta="3" style="display:none;">
+                            <label for="otra_avtividad_ingresos">Adicionalmente al trabajo que realiza... ¿desempeña
+                                otra actividad de la cual obtiene ingreso?</label>
+
+                            <a class="buttonEnc buttonOption1 @if((old('otra_avtividad_ingresos')== 1)|| $Educacion->otra_avtividad_ingresos==1) selected @endif"
+                                data-input="otra_avtividad_ingresos" data-value="1">Si</a>
+                            <div id="conOtraActSi" class="conPreSec"
+                                style="display: @if((old('otra_avtividad_ingresos')== 1)|| $Educacion->otra_avtividad_ingresos==1) block @else none @endif;">
+                                <!-- Pregunta 031. Especifique-->
+                                <label for="otra_avtividad_ingresos_especifique">Especifique:</label>
+                                @php $opSec = 0; @endphp
+                                <label class="contcheckbox">Empleado del sector público
+                                    <input class="buttonOption2" type="checkbox" id="actIng_1" name="actIng_1" value="1"
+                                        @if((old('otra_avtividad_ingresos_especifique')==1)||
+                                        $Educacion->otra_avtividad_ingresos_especifique==1) checked @php $opSec = 1;
+                                    @endphp @endif data-input="otra_avtividad_ingresos_especifique" data-value="1">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <div id="conActOtraPub" class="conPreSec"
+                                    style="display: @if((old('otra_avtividad_ingresos_especifique')== 1)|| $Educacion->otra_avtividad_ingresos_especifique==1) block @else none @endif;">
+                                    <label for="otra_ocupacion_publica">¿Cuál? </label>
+                                    <input type="text" class="form-control" name="otra_ocupacion_publica"
+                                        id="otra_ocupacion_publica"
+                                        value="{{old('otra_ocupacion_publica', $Educacion->otra_ocupacion_publica)}}">
+                                    {!!$errors->first('otra_ocupacion_publica','<FONT COLOR="red">
+                                        <strong>:message</strong></FONT>')!!}
+                                </div>
+
+                                <label class="contcheckbox">Empleado del sector privado
+                                    <input class="buttonOption2" type="checkbox" id="actIng_2" name="actIng_2" value="2"
+                                        @if((old('otra_avtividad_ingresos_especifique')==2 )||
+                                        $Educacion->otra_avtividad_ingresos_especifique==2) checked @php $opSec = 2;
+                                    @endphp @endif data-input="otra_avtividad_ingresos_especifique" data-value="2">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <div id="conActOtraPri" class="conPreSec"
+                                    style="display: @if((old('otra_avtividad_ingresos_especifique')==2 )|| $Educacion->otra_avtividad_ingresos_especifique==2) block @else none @endif;">
+                                    <label for="otra_ocupacion_privada">¿Cuál? </label>
+                                    <input type="text" class="form-control" name="otra_ocupacion_privada"
+                                        id="otra_ocupacion_privada" value="{{$Educacion->otra_ocupacion_privada}}">
+                                    {!!$errors->first('otra_ocupacion_privada','<FONT COLOR="red">
+                                        <strong>:message</strong></FONT>')!!}
+                                </div>
+
+                                <label class="contcheckbox">Empleado del sector social como: cooperativas,
+                                    organizaciones no lucrativas, etc.
+                                    <input class="buttonOption2" type="checkbox" id="actIng_3" name="actIng_3" value="3"
+                                        @if((old('otra_avtividad_ingresos_especifique')==3)||
+                                        $Educacion->otra_avtividad_ingresos_especifique==3) checked @php $opSec = 3;
+                                    @endphp @endif data-input="otra_avtividad_ingresos_especifique" data-value="3">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <div id="conActOtraCop" class="conPreSec"
+                                    style="display: @if((old('otra_avtividad_ingresos_especifique')== 3)|| $Educacion->otra_avtividad_ingresos_especifique==3) block @else none @endif;">
+                                    <label for="otra_ocupacion_coperativa">¿Cuál? </label>
+                                    <input type="text" class="form-control" name="otra_ocupacion_coperativa"
+                                        id="otra_ocupacion_coperativa"
+                                        value="{{old('otra_ocupacion_coperativa',$Educacion->otra_ocupacion_coperativa)}}">
+                                    {!!$errors->first('otra_ocupacion_coperativa','<FONT COLOR="red">
+                                        <strong>:message</strong></FONT>')!!}
+                                </div>
+
+                                <label class="contcheckbox">Autoempleo
+                                    <input class="buttonOption2" type="checkbox" id="actIng_4" name="actIng_4" value="4"
+                                        @if((old('otra_avtividad_ingresos_especifique')==4 )||
+                                        $Educacion->otra_avtividad_ingresos_especifique==4 ) checked @php $opSec = 4;
+                                    @endphp @endif data-input="otra_avtividad_ingresos_especifique" data-value="4">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <!-- FIN Pregunta 031. Especifique -->
+
+                                <input class="inputHidden" type="number" id="otra_avtividad_ingresos_especifique"
+                                    name="otra_avtividad_ingresos_especifique" value="{{$opSec}}">
+                            </div>
+                            <a class="buttonEnc buttonOption1 @if((old('otra_avtividad_ingresos')== 2)|| $Educacion->otra_avtividad_ingresos==2 ) selected @endif"
+                                data-input="otra_avtividad_ingresos" data-value="2">No</a>
+
+                            <input class="inputHidden" type="number" id="otra_avtividad_ingresos"
+                                name="otra_avtividad_ingresos" @if((old('otra_avtividad_ingresos')==1)||
+                                $Educacion->otra_avtividad_ingresos==1) value="1" @elseif
+                            ((old('otra_avtividad_ingresos')== 2)|| $Educacion->otra_avtividad_ingresos==2 ) value="2"
+                            @else value="0" @endif>
+
+                            <div class="msg-error">{!!$errors->first('otra_avtividad_ingresos','message')!!}</div>
+                        </div>
+                        <!-- FIN Pregunta 03. Adicionalmente al trabajo que realiza... ¿desempeña otra actividad de la cual obtiene ingreso? -->
+
+                        <!-- Pregunta 04. ¿Cuál es su nivel de ingreso mensual? -->
+                        <div class="pregunta" data-pregunta="4" style="display:none;">
+                            <label for="nivel_ingresos_mensual">¿Cuál es su nivel de ingreso mensual?</label>
+                            <div class="input-icon fila">
+                                <input class="form-control" type="number" name="nivel_ingresos_mensual"
+                                    id="nivel_ingresos_mensual" step="any" placeholder="Por ejemplo: 1000"
+                                    value="{{old('nivel_ingresos_mensual',$Educacion->nivel_ingresos_mensual)}}">
+                                <i class="fas fa-dollar-sign icon"></i>
+                            </div>
+                            <div class="msg-error">{!!$errors->first('nivel_ingresos_mensual','<FONT COLOR="red">
+                                    <strong>:message</strong></FONT>')!!}}</div>
+                        </div>
+                        <!-- FIN Pregunta 04. ¿Cuál es su nivel de ingreso mensual? -->
+
+                        <!-- Pregunta 05. ¿Qué porcentaje de sus ingresos proviene de su trabajo en el campo de la cultura?-->
+                        <div class="pregunta" data-pregunta="5" style="display:none;">
+                            <label for="porcentaje_ingresos_cultura">¿Qué porcentaje de sus ingresos proviene de su
+                                trabajo en el campo de la cultura?</label>
+                            <div class="input-icon fila">
+                                <input class="form-control" type="number" name="porcentaje_ingresos_cultura"
+                                    id="porcentaje_ingresos_cultura" placeholder="Por ejemplo: 60"
+                                    value="{{old('porcentaje_ingresos_cultura',$Educacion->porcentaje_ingresos_cultura)}}"
+                                    min="0" max="100">
+                                <i class="fas fa-percent icon"></i>
+                            </div>
+                            <div class="msg-error">{!!$errors->first('porcentaje_ingresos_cultura','<FONT COLOR="red">
+                                    <strong>:message</strong></FONT>')!!}</div>
+                        </div>
+                        <!-- FIN Pregunta 05. ¿Qué porcentaje de sus ingresos proviene de su trabajo en el campo de la cultura?-->
+
+                        <!-- Pregunta 06. ¿Cuántas horas al día dedica a su labor artística y/o práctica cultural?-->
+                        <div class="pregunta" data-pregunta="6" style="display:none;">
+                            <label for="horas_labor_artistica">¿Cuántas horas al día dedica a su labor artística y/o
+                                práctica cultural?</label>
+                            <input type="text" class="form-control" name="horas_labor_artistica"
+                                id="horas_labor_artistica" placeholder="Escribir horas y minutos. Por ejemplo: 06:25"
+                                value="{{old('horas_labor_artistica ', $Educacion->horas_labor_artistica)}}">
+                            <div class="msg-error">{!!$errors->first('horas_labor_artistica','<FONT COLOR="red">
+                                    <strong>:message</strong></FONT>')!!}</div>
+                        </div>
+                        <!-- FIN Pregunta 06. ¿Cuántas horas al día dedica a su labor artística y/o práctica cultural?-->
+
+                        {{-- id de encuesta y posición actual --}}
+                        <input type="hidden" id="tipo_guardado" name="tipo_guardado" value="0">
+                        <input type="hidden" id="id" name="id" value="{{$Educacion->id}}">
+                        @isset($posactualIn)
+                        <input type="hidden" name="posactualIn" id="posactualIn" value="{{$posactualIn}}">
+                        @else
+                        <input type="hidden" name="posactualIn" id="posactualIn" value="1">
+                        @endisset
+                        {{-- fin del id de encuesta --}}
+
+
+                        <!-- <div class="btn btn-primary"><a href='javascript:;' onclick='Siguiente();'>Siguiente</a></div>
+                      <div class="btn btn-primary"><a href='javascript:;' onclick='atras();'>Regresar</a></div>
+                      @if($posactualIn==6)
+                      <a class="btn btn-primary" id="save">Enviar</a>
+                      @endif -->
+
+
+                        <input type="hidden" id="tipo_guardado" name="tipo_guardado" value="0">
+                        <input type="hidden" id="id" name="id" value="">
+
+                        <div class="btnStyleEnc" id="btnSigFormacion" style="display:none"><a>Siguiente</a></div>
+                        <div class="btnStyleEnc" id="btnEnviarFormacion" style="display:none"><a>Enviar</a></div>
+
+                    </form>
+                </div>
+                <div id="myProgress">
+                    <div id="myBar" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <div id="btnRegresar" style="display:none;">
+                <a>Regresar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section('page-script')
+<script src="{{ asset('public/js/mainFormacion.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+      
+  
+    });
+
+    
+
+</script>
+@stop
+
+@endsection

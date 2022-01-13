@@ -1,0 +1,196 @@
+/* Reboot */
+p {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #444444;
+  font-size: 1.2rem;
+}
+
+
+/* General CSS */
+
+.General {
+}
+.General section {
+  padding: 150px 0 90px 0;
+}
+/* Css Cards */
+.rgba-black-strong {
+  background-color: rgba(0,0,0,0.3);
+}
+.btn-primary {
+  background-color: #dd463c;
+  border-color: #dd463c;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #390094;
+  border-color: #390094;
+}
+.btn .fa.left, .fa.left {
+    margin-right: .3rem;
+}
+.card-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Section Convocatoria */
+.convocatoria p {
+  margin-bottom: 15px;
+}
+.fSize {
+  font-size: .8rem;
+}
+
+/* Circles */
+.circles {
+
+}
+.circle-1 {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background-color: #FFBD69;
+  border-radius: 50px;
+  margin: 0px 15px;
+}
+.circle-1::after {
+  position: absolute;
+  content: '1';
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.circle-2 {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background-color: #FFBD69;
+  border-radius: 50px;
+  margin: 0px 15px;
+}
+.circle-2::after {
+  position: absolute;
+  content: "2";
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #ffffff;
+  font-weight: 600;
+}
+.circle-2::before {
+  position: absolute;
+  content: '';
+  background-color: #e0dede;
+  width: 58%;
+  height: 2px;
+  top: 50%;
+  right: 100%;
+}
+.circle-3 {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background-color: #FFBD69;
+  border-radius: 50px;
+  margin: 0px 15px;
+}
+.circle-3::after {
+  position: absolute;
+  content: "3";
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #ffffff;
+  font-weight: 600;
+}
+.circle-3::before {
+  position: absolute;
+  content: '';
+  background-color: #e0dede;
+  width: 58%;
+  height: 2px;
+  top: 50%;
+  right: 100%;
+}
+.circle-4 {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background-color: #FFBD69;
+  border-radius: 50px;
+  margin: 0px 15px;
+}
+.circle-4::after {
+  position: absolute;
+  content: "4";
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #ffffff;
+  font-weight: 600;
+}
+.circle-4::before {
+  position: absolute;
+  content: '';
+  background-color: #e0dede;
+  width: 58%;
+  height: 2px;
+  top: 50%;
+  right: 100%;
+}
+.cActive {
+  background-color: #DD463C;
+}
+.cFinished {
+  background-color: #390094;
+}
+
+/* Form */
+.required {
+  color: #FF0000;
+  font-size: 10px;
+}
+.cRed {
+  color: #FF0000;
+  font-size: 10px;
+  top: -.5rem;
+}
+/* Colors */
+.cGreen {
+  color: #bac964;
+}
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #390094;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(57, 0, 148, 0.25);
+}
+
+/* Finish Convo */
+.logoTelar {
+  width: 25%;
+}
+/* Medias */
+@media (min-width: 320px) and (max-width: 501px) {
+
+  .text-right {
+    text-align: left !important;
+  }
+  .no-mb {
+    margin-bottom: 0;
+  }
+  .logoTelar {
+    width: 50%;
+  }
+}

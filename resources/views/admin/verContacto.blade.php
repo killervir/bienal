@@ -1,0 +1,12 @@
+@extends('admin.layout')
+@section('content')
+{{$contacto->nombre}}
+{{$contacto->email}}
+{{$contacto->descripcion}}
+{{$contacto->telefono1}}
+{{$contacto->extension1}}
+{{$contacto->telefono2}}
+{{$contacto->extension2}}
+{{$contacto->horario}}
+{{$contacto->direccion}}
+@stop
